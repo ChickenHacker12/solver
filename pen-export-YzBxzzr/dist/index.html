@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - A Pen by Chicken</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<script type="text/javascript" id="MathJax-script" defer
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js">
+</script>
+<script defer src="https://unpkg.com/mathlive"></script><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css'>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="sticky-top bg-white">
+  <div class="container-md">
+    <div class="row">
+      <div class="col">Math Solver</div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="">
+        <div class="alert alert-primary">
+          Experimental Math Solver
+        </div>
+        <ul id="history-box" class="list-group list-group-flush">
+          <li class="list-group-item">
+            <small>Input:</small>
+            <p class="" id="input-render"></p>
+          </li>
+          <li class="list-group-item list-group-item-info">
+            <small>Answer</small>
+            <p class="form-control"><span id="output"></span></p>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <math-field id="input-box" class="form-control"></math-field>
+          <div class="dropdown">
+            <button id="submit-btn" class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Solve...
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#" class="dropdown-item">Evaluate</a>
+              </li>
+              <li>
+                <a href="#" class="dropdown-item">Simplify</a>
+              </li>
+              <li>
+                <a href="#" class="dropdown-item">Rationalize</a>
+              </li>
+              <li>
+                <a href="#" class="dropdown-item">Differentiate (d/dx)</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.0.0/math.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/latest.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

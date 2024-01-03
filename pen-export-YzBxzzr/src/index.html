@@ -1,0 +1,57 @@
+<div class="sticky-top bg-white">
+  <div class="container-md">
+    <div class="row">
+      <div class="col">Math Solver</div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="">
+        <div class="alert alert-primary">
+          Experimental Math Solver
+        </div>
+        <ul id="history-box" class="list-group list-group-flush">
+          <li class="list-group-item">
+            <small>Input:</small>
+            <p class="" id="input-render"></p>
+          </li>
+          <li class="list-group-item list-group-item-info">
+            <small>Answer</small>
+            <p class="form-control"><span id="output"></span></p>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <math-field id="input-box" class="form-control"></math-field>
+          <div class="dropdown">
+            <button id="submit-btn" class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Solve...
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#" class="dropdown-item">Evaluate</a>
+              </li>
+              <li>
+                <a href="#" class="dropdown-item">Simplify</a>
+              </li>
+              <li>
+                <a href="#" class="dropdown-item">Rationalize</a>
+              </li>
+              <li>
+                <a href="#" class="dropdown-item">Differentiate (d/dx)</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

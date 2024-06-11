@@ -3,12 +3,12 @@ export default class MathEngine {
   constructor() {
     this.operations = {};
     this.metadata = {
-      name,
-      inputType
+      // name,
+      // "inputType"
     };
   }
 
-  function getOperations() {
+  getOperations() {
     return this.operations;
   }
 }

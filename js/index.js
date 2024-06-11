@@ -4,6 +4,7 @@ import HistoryManager from "./history_manager.js";
 import calculate from "./calculate.js";
 import findPossibleRationalRoots from "./roots.js";
 import findVariables from "./find_variables.js";
+import PrimaryEngine from "./primary_engine.js";
 // import MathJax from "mathjax/es5/startup.js";
 // let MathJax = require("mathjax/es5/startup.js");
 window.MathJax = {
@@ -14,6 +15,10 @@ window.MathJax = {
 // require("mathjax/es5/startup.js");
 
 lucide.createIcons();
+
+const engine = new PrimaryEngine();
+console.info(engine.getOperations());
+console.log(engine.operations.derivative.operation("e^{5x}"));
 
 export const options = {
   output: {

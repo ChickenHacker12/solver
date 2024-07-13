@@ -48,30 +48,42 @@ mathVirtualKeyboard.addEventListener("geometrychange", () => {
 });
 
 function generateActionButtons() {
-  let buttons = [
-  {
-    action: "evaluate",
-    description: "Evaluate"
-  }, {
-    action: "simplify",
-    description: "Simplify the expression"
-  }, {
-    action: "rationalize",
-    description: "Rationalize the expression"
-  },
-  {
-    action: "differentiate",
-    description: "Differentiate with repsect to x"
-  }];
+  // let buttons = [
+  // {
+  //   action: "evaluate",
+  //   description: "Evaluate"
+  // }, {
+  //   action: "simplify",
+  //   description: "Simplify the expression"
+  // }, {
+  //   action: "rationalize",
+  //   description: "Rationalize the expression"
+  // },
+  // {
+  //   action: "differentiate",
+  //   description: "Differentiate with repsect to x"
+  // }];
+  //
+  // buttons.forEach((button) => {
+  //   let btn = document.createElement("button");
+  //   btn.className = "list-group-item list-group-item-action";
+  //   btn.addEventListener("click", () => actionButtonClicked(operations[operation]));
+  //   btn.setAttribute("data-bs-dismiss", "modal");
+  //   btn.innerHTML = button.description;
+  //   actionButtonBox.appendChild(btn);
+  // });
 
-  buttons.forEach((button) => {
+  let operations = engine.getOperations();
+
+  for (let operation in operations) {
     let btn = document.createElement("button");
     btn.className = "list-group-item list-group-item-action";
-    btn.addEventListener("click", () => actionButtonClicked(button.action));
+    btn.addEventListener("click", () => actionButtonClicked(operations[operation]));
     btn.setAttribute("data-bs-dismiss", "modal");
-    btn.innerHTML = button.description;
+    btn.innerHTML = operations[operation].description;
     actionButtonBox.appendChild(btn);
-  });
+  }
+
 
 }
 
@@ -84,17 +96,19 @@ submitBtn.onclick = () => {
 };
 
 function actionButtonClicked(action) {
-  let asciiInput = MathLive.convertLatexToAsciiMath(inputBox.value, "math");
+  // let asciiInput = MathLive.convertLatexToAsciiMath(inputBox.value, "math");
   let question = {
     type: "Question",
-    expression: asciiInput,
+    expression: inputBox.value,
     time: new Date(),
-    description: action
+    description: action.description
   };
   historyManager.addItem(question);
   renderHistoryItem(question);
 
-  renderOutput(calculate(asciiInput, action));
+  // renderOutput(calculate(asciiInput, action));
+  renderOutput(action.operation(question.expression));
+  // console.info(action.operation(question.expression));
 
   // history.forEach(renderHistoryItem);
   // MathJax.typeset([historyBox]);
@@ -122,12 +136,13 @@ function renderExpression(rawExp, delimiter = "`") {
 
 function renderOutput(object, delimiter = "`", description = "This is the solution:") {
   if (!object.name) {
-    let rawExp = object;
-    // rawExp is an Object
-    console.info(rawExp);
-    rawExp = math.string(rawExp);
+    // let rawExp = object;
+    // // rawExp is an Object
+    // console.info(rawExp);
+    // rawExp = math.string(rawExp);
 
-    let expression = MathLive.convertAsciiMathToLatex(rawExp);
+    // let expression = MathLive.convertAsciiMathToLatex(rawExp);
+    let expression = object;
     let answer = {
       type: "Answer",
       expression,

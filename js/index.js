@@ -48,30 +48,6 @@ mathVirtualKeyboard.addEventListener("geometrychange", () => {
 });
 
 function generateActionButtons() {
-  // let buttons = [
-  // {
-  //   action: "evaluate",
-  //   description: "Evaluate"
-  // }, {
-  //   action: "simplify",
-  //   description: "Simplify the expression"
-  // }, {
-  //   action: "rationalize",
-  //   description: "Rationalize the expression"
-  // },
-  // {
-  //   action: "differentiate",
-  //   description: "Differentiate with repsect to x"
-  // }];
-  //
-  // buttons.forEach((button) => {
-  //   let btn = document.createElement("button");
-  //   btn.className = "list-group-item list-group-item-action";
-  //   btn.addEventListener("click", () => actionButtonClicked(operations[operation]));
-  //   btn.setAttribute("data-bs-dismiss", "modal");
-  //   btn.innerHTML = button.description;
-  //   actionButtonBox.appendChild(btn);
-  // });
 
   let operations = engine.getOperations();
 
@@ -117,22 +93,6 @@ function actionButtonClicked(action) {
 function renderExpression(rawExp, delimiter = "`") {
   return delimiter + rawExp.toString(options.stringOutput) + delimiter;
 }
-
-// function renderOutput(rawExp, delimiter = "`", description = "This is the solution:") {
-//   // rawExp is an Object
-//   rawExp = math.string(rawExp);
-//   // console.info(rawExp);
-//
-//   let expression = MathLive.convertAsciiMathToLatex(rawExp);
-//   let answer = {
-//     type: "Answer",
-//     expression,
-//     time: new Date(),
-//     description
-//   };
-//   historyManager.addItem(answer);
-//   renderHistoryItem(answer);
-// }
 
 function renderOutput(object, delimiter = "`", description = "This is the solution:") {
   if (!object.name) {

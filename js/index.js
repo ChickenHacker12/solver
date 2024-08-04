@@ -82,12 +82,15 @@ function actionButtonClicked(action) {
   historyManager.addItem(question);
   renderHistoryItem(question);
 
-  // renderOutput(calculate(asciiInput, action));
-  renderOutput(action.operation(question.expression));
-  // console.info(action.operation(question.expression));
+  let expr = engine.parseInput(inputBox.value);
+  if (expr.isValid) {
+    renderOutput(action.operation(expr));
 
-  // history.forEach(renderHistoryItem);
-  // MathJax.typeset([historyBox]);
+  } else {
+    expr.errors.forEach(e => console.error(e));
+    renderOutput({type: "Error"});
+  }
+
 }
 
 function renderExpression(rawExp, delimiter = "`") {
@@ -127,15 +130,23 @@ function renderOutput(object, delimiter = "`", description = "This is the soluti
 
 }
 
-function renderAnswer() {
-
-}
-
 function renderHistoryItem(item) {
-  historyBox.innerHTML += `<li class="list-group-item"><small>${item.type}</small>
-  <p>${options.output.showDescriptions ? item.description : ""}</p>
-  <math-field readonly>${item.expression}</math-field>
-  </li>`;
+  switch (item.type) {
+    case "Answer":
+    default:
+      historyBox.innerHTML += `<li class="list-group-item"><small>${item.type}</small>
+      <p>${options.output.showDescriptions ? item.description : ""}</p>
+      <math-field readonly>${item.expression}</math-field>
+      </li>`;
+      break;
+    case "Error":
+      historyBox.innerHTML += `<li class="list-group-item"><small>${item.type}</small>
+      <p>${options.output.showDescriptions ? item.description : ""}</p>
+      <i data-lucide="circle-x"></i><math-field readonly>${item.expression}</math-field>
+      </li>`;
+      break;
+  }
+
   scrollDown();
 }
 

@@ -1,5 +1,6 @@
 import bootstrap from "bootstrap";
 import { createIcons } from "lucide";
+import functionPlot from "function-plot";
 import HistoryManager from "./history_manager.js";
 import calculate from "./calculate.js";
 import findPossibleRationalRoots from "./roots.js";
@@ -114,6 +115,7 @@ function renderOutput(object, delimiter = "`", description = "This is the soluti
     };
     historyManager.addItem(answer);
     renderHistoryItem(answer);
+    renderGraphItem(expression);
   } else {
     let e = object;
     // Handle error
@@ -148,6 +150,39 @@ function renderHistoryItem(item) {
   }
 
   scrollDown();
+}
+
+function renderGraphItem(mathJSON) {
+  let time = String(Date.now());
+  const uniqueID = time.split("").map(n => {
+    // return "abcdefghijklmnopqrstuvwxyz".indexOf(n);
+    return String.fromCharCode(10 + n);
+  }).join("");
+  console.log(uniqueID);
+  historyBox.innerHTML += `
+  <li class="list-group-item">
+  <small>Graph</small>
+  <div id="${uniqueID}"></div>
+  </li>
+  `;
+
+  renderGraph(mathJSON, uniqueID);
+}
+
+function renderGraph(mathJSON, newGraphBox) {
+  const expr = MathLive.convertLatexToAsciiMath(mathJSON);
+  console.info(expr);
+
+
+  functionPlot({
+    target: `#${newGraphBox}`,
+    width: 350,
+    data: [{
+      fn: expr,
+      graphType: "polyline"
+    }]
+
+  });
 }
 
 function scrollDown() {

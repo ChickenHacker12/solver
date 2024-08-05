@@ -186,6 +186,5 @@ function renderGraph(mathJSON, newGraphBox) {
 }
 
 function scrollDown() {
-  // scrollTo(0, (inputBox.getBoundingClientRect()).top);
-  inputBox.scrollIntoView();
+  scrollTo(0, historyBox.scrollHeight);
 }

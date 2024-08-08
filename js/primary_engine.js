@@ -7,18 +7,21 @@ export default class PrimaryEngine extends MathEngine {
 
     this.ce = new ComputeEngine();
 
-    const hypoReplaceRule = this.ce.rules([
-      // [
-      //   ["Divide", ["Add", ["Power", "ExponentialE", ["Negate", "x"]], ["Power", "ExponentialE", "x"]], 2],
-      //   ["Cosh", "x"]
-      // ],
+    this.hypoReplaceRule = this.ce.rules([
       {
-        match: ["Divide", 1, ["Tan", "_"]],
-        replace: ["Cot", "_"]
+        match: ["Divide", ["Add", ["Power", "ExponentialE", ["Negate", "x"]], ["Power", "ExponentialE", "x"]], 2],
+        replace: ["Cosh", "x"]
+      },
+      {
+        match: ["Divide", ["Subtract", ["Power", "ExponentialE", ["Negate", "x"]], ["Power", "ExponentialE", "x"]], 2],
+        replace: ["Sinh", "x"]
+      },
+      {
+        match: [ "Divide", [ "Add", ["Negate", ["Power", "ExponentialE", ["Negate", "x"]]], ["Power", "ExponentialE", "x"] ], [ "Add", ["Power", "ExponentialE", ["Negate", "x"]], ["Power", "ExponentialE", "x"]]],
+        replace: ["Tanh", "x"]
       }
-
     ]);
-    console.log(hypoReplaceRule);
+    console.log(this.hypoReplaceRule);
 
     this.operations = {
       derivative: {
@@ -31,20 +34,27 @@ export default class PrimaryEngine extends MathEngine {
       evaluate: {
         description: "Evaluate the expression",
         operation: function(input) {
-          return (this.ce.box([this.ce.parse(input)]).evaluate().latex);
+          return (this.ce.box([input]).evaluate().latex);
         }.bind(this)
       },
       integrate: {
         description: "Int",
         operation: function(input) {
-          return (this.ce.box(["Integrate", this._parseInput(input), "x"]).simplify().latex);
+          return (this.ce.box(["Integrate", input, "x"]).simplify().latex);
         }.bind(this)
       },
       hypoReplace: {
         description: "Replace exponential functions with hyperbolic",
         operation: function(input) {
           console.log(input);
-          return (this.ce.box([input]).replace(this.hypoReplaceRule).latex);
+          try {
+
+            let output = this.ce.box(input).replace(this.hypoReplaceRule, {once: false, recursive: true}).latex;
+            return output;
+          } catch (e) {
+            console.error(e);
+            return input.latex;
+          }
         }.bind(this)
       }
     };

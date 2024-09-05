@@ -173,16 +173,25 @@ function renderGraph(mathJSON, newGraphBox) {
   const expr = MathLive.convertLatexToAsciiMath(mathJSON);
   console.info(expr);
 
+  try {
+    functionPlot({
+      target: `#${newGraphBox}`,
+      width: 350,
+      data: [{
+        fn: expr,
+        graphType: "polyline"
+      }]
 
-  functionPlot({
-    target: `#${newGraphBox}`,
-    width: 350,
-    data: [{
-      fn: expr,
-      graphType: "polyline"
-    }]
-
-  });
+    });
+  } catch(e) {
+    console.error(e);
+    let graphBox = document.querySelector(`#${newGraphBox}`);
+    graphBox.innerHTML +=
+    `<div class="alert alert-info" role="alert">
+    <i data-lucide="info"></i>Graph not available
+    </div>`;
+    graphBox.removeChild(graphBox.querySelector("svg"));
+  }
 }
 
 function scrollDown() {
